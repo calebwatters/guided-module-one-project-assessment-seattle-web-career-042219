@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 7) do
 
   create_table "adoptions", force: :cascade do |t|
     t.integer "user_id"
@@ -21,14 +21,12 @@ ActiveRecord::Schema.define(version: 5) do
     t.string "name"
     t.string "gender"
     t.string "breed"
-    t.string "nickname"
     t.integer "house_id"
     t.integer "popularity"
   end
 
   create_table "houses", force: :cascade do |t|
     t.string "name"
-    t.string "location"
   end
 
   create_table "seasons", force: :cascade do |t|

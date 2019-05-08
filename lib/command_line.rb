@@ -11,27 +11,170 @@ def welcome
   EOF
 end
 
+
+
+ def get_user
+      puts "What is your name?"
+        new_name = gets.chomp
+        new_user = User.find_or_create_by(name: new_name)
+        CLI.current_user = new_user
+  end
+
+  def who_is_logged_in
+    username = CLI.current_user
+    puts <<-EOF
+    -------------------------
+      Welcome #{username.name}!
+    -------------------------
+    EOF
+  end
+
+def search_results(results)
+  puts "Their name is #{results.name}"
+  puts "Their breed is #{results.breed}"
+  puts "Their gender is #{results.gender}"
+  puts "From a great shelter called #{results.house}"
+end
 def find_characters_by_name
   # binding.pry
   puts "Please enter a character name"
   search = gets.chomp.downcase
   name = search.split.each { |name| name.capitalize! }.join(' ')
   results = Character.find_by(name: name)
-  puts "Their name is #{results.name}"
-  puts "Their breed is #{results.breed}"
-  puts "Their gender is #{results.gender}"
-  puts "From a great shelter called #{results.house}"
-  puts "Their popularity is #{results.popularity}"
+  search_results(results)
 end
+
 
 def search_by_breed(num)
   if num == "1"
+    puts <<-EOF
+      --------------------------
+           Valar Morgolis!
+      --------------------------
+      EOF
     breed = 'Braavosi'
-  results = Character.find_all(breed: breed)
-  puts "Their name is #{results.name}"
-  puts "Their breed is #{results.breed}"
-  puts "Their gender is #{results.gender}"
-  puts "From a great shelter called #{results.house}"
+  results = Character.where(breed: breed).sample
+  search_results(results)
+  elsif num == "2"
+    puts <<-EOF
+      --------------------
+        Dorn has no king
+      --------------------
+      EOF
+    breed = 'Dornish'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "3"
+       puts <<-EOF
+      ------------------------
+      Yer jalan atthirari anni
+      ------------------------
+      EOF
+    breed = 'Dothraki'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "4"
+       puts <<-EOF
+      ------------------------------
+      These are the free folk indeed
+      ------------------------------
+      EOF
+    breed = 'Free Folk'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "5"
+      puts <<-EOF
+            くコ:彡
+      --------------------------
+      What is dead my never die!
+      --------------------------
+      EOF
+    breed = 'Ironborn'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "6"
+      puts <<-EOF
+             _
+            / \      _-'
+          _/|  \-''- _ /
+     __-' { |          \
+         /             \
+         /       "o.  |o }
+         |            \ ;
+                       ',
+            \_         __\
+              ''-_    \.//
+                / '-____'
+               /
+             _'
+           _-'
+      --------------------------
+          WINTER IS COMING!
+      --------------------------
+      EOF
+    breed = 'Northmen'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "7"
+      puts <<-EOF
+                         _.'.__
+                      _.'      .
+':'.               .''   __ __  .
+  '.:._          ./  _ ''     "-'.__
+.'''-: """-._    | .                "-"._
+ '.     .    "._.'                       "
+    '.   "-.___ .        .'          .  :o'.
+      |   .----  .      .           .'     (
+       '|  ----. '   ,.._                _-'
+        .' .---  |.""  .-:;.. _____.----'
+        |   .-""""    |      '
+      .'  _'         .'    _'
+     |_.-'            '-.'
+      EOF
+    breed = 'Rivermen'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "8"
+    breed = 'Valemen'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "9"
+    breed = 'Valyrian'
+    puts <<-EOF
+            /           /
+            /' .,,,,  ./
+           /';'     ,/
+          / /   ,,//,`'`
+         ( ,, '_,  ,,,' ``
+         |    /@  ,,, ; `
+        /    .   ,''/' `,``
+       /   .     ./, `,, ` ;
+    ,./  .   ,-,',` ,,/'','
+   |   /; ./,,'`,,'' |   |
+   |     /   ','    /    |
+    \___/'   '     |     |
+      `,,'  |      /     `\ 
+           /      |        ~\
+          '       (
+         :
+        ; .         --
+      :            ;  "    
+
+    EOF
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    elsif num == "10"
+    breed = 'Westeros'
+  results = Character.where(breed: breed).sample
+  search_results(results)
+    else num == "11"
+       puts <<-EOF
+      ---------------------------------------------------------------------
+      You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
+      ---------------------------------------------------------------------
+      EOF
+  results = Character.all.sample
+  search_results(results)
   end
 
 end
@@ -81,24 +224,7 @@ end
 
 def dragon1 
 puts <<-'EOF'
-             /           /
-            /' .,,,,  ./
-           /';'     ,/
-          / /   ,,//,`'`
-         ( ,, '_,  ,,,' ``
-         |    /@  ,,, ; `
-        /    .   ,''/' `,``
-       /   .     ./, `,, ` ;
-    ,./  .   ,-,',` ,,/'','
-   |   /; ./,,'`,,'' |   |
-   |     /   ','    /    |
-    \___/'   '     |     |
-      `,,'  |      /     `\ 
-           /      |        ~\
-          '       (
-         :
-        ; .         --
-      :            ;  "    
+      
       ___               ___  ___   ___ 
   .'|=|_.'    .'|=|`.   `._|=|   |=|_.' 
 .'  |___    .'  | |  `.      |   |      
@@ -162,4 +288,3 @@ end
 #        puts 'Press enter for the big reveal.....'
 #   end
 # end
-

@@ -1,5 +1,3 @@
-## NOTE---change your page numbers when you are actually wanting to seed all data.
-
 require 'rest-client'
 require 'json'
 require 'pry'
@@ -7,7 +5,7 @@ require 'pry'
 #info from API parsed into JSON
 def character_info_hash
   total_results = []
-  page_rage = (1..10).to_a
+  page_rage = (1..4).to_a
   page_rage.each do |num|
       # Build the URL and download the results
       url = "https://www.anapioficeandfire.com/api/characters?page=#{num}"
@@ -19,6 +17,9 @@ def character_info_hash
 end
 
 
+#Creates character instances with name/breed/gender/popularity/houses
+# attributes and adds info to the characters database---data collected from
+#ice-and-fire api
 
 def character_attributes
 character_names_array = []
@@ -30,58 +31,41 @@ character_names_array = []
         name = character['aliases'].first
         gender = character['gender']
         popularity = character['tvSeries'].length
+        house = character_house_hash(character)
         if character['culture'] == ""
-        breed = "uknown"
+          breed = "uknown"
+          house = character_house_hash(character)
         else
           breed = character['culture']
+          house = character_house_hash(character)
         end
-        puts "name: #{name}, breed:#{breed}, gender: #{gender}, popularity: #{popularity}"
-                # Character.create(name: name)
+        Character.create(name: name,  breed: breed, gender: gender, popularity: popularity, house: house)
       else
         name = character['name']
         gender = character['gender']
         popularity = character['tvSeries'].length
+        house = character_house_hash(character)
         if character['culture'] == ""
-        breed = "uknown"
+          breed = "uknown"
         else
           breed = character['culture']
         end
-        #turn the below statement into an attributes hash, pass into character.create
-        puts "name: #{name}, breed:#{breed}, gender: #{gender}, popularity: #{popularity}"
-        binding.pry
-        # Character.create(name: name)
-        #Hashouse.new---access only the housees related to the characters in the tv shows
+        Character.create(name: name,  breed: breed, gender: gender, popularity: popularity, house: house)
+        end
       end
     end
-  end
-  return 'Hi'
-  end
-
-def houses_attributes
+  return nil
 end
 
-
-def house_info_hash
-  total_results = []
-  page_rage = (1..100).to_a
-  page_rage.each do |num|
-      # Build the URL and download the results
-      url = "https://www.anapioficeandfire.com/api/houses?page=#{num}"
+#HELPER METHOD---returns house name for given character as a string
+def character_house_hash(character)
+  if character['allegiances'].any?
+      url = character['allegiances'][0]
       response = RestClient.get(url)
       data = JSON.parse(response)
-      total_results<< data
-    end
-      total_results.flatten
-end
-
-def house_attributes
-
-  house_info_hash.each do |house|
-    if house['swornMembers'].length > 20
-      name = house['name']
-
-      puts "House: #{name}"
-    end
+      shelter = data['name']
+  else
+    shelter = 'currenty wandering the land'
   end
-  return nil
+  shelter
 end

@@ -32,6 +32,9 @@ def current_pet_name_array
   char_id_array = CLI.current_user.adoptions.map{|adoption|adoption.character_id}
   pets = char_id_array.map{|char_id| Character.find_by id: char_id}.compact
   names = pets.map{|pet| pet.name}
-puts names 
+  formatted_names = names.each{|name|
+    name.to_s
+  }
+  formatted_names
 
 end

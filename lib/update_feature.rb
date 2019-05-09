@@ -1,36 +1,36 @@
-def homepage
-    puts <<-EOF
-                                    Current User: #{CLI.current_user.name}
+# def homepage
+#     puts <<-EOF
+#                                     Current User: #{CLI.current_user.name}
 
 
-      Press 1. to begin the apotion process
-      Press 2. to manage your current pets
-      Press 3. to logout
-      Press 4. to quit
+#       Press 1. to begin the apotion process
+#       Press 2. to manage your current pets
+#       Press 3. to logout
+#       Press 4. to quit
 
-    EOF
-    answer = gets.chomp
+#     EOF
+#     answer = gets.chomp
 
-    if answer == "1"
-      question
+#     if answer == "1"
+#       question
 
-    elsif answer == "2"
-      if CLI.current_user.adoptions.count== 0
-        puts "you don't have any pets yet!"
-        homepage
-      else
-        update
-      end 
-    elsif answer == '3'
-      runner
-    elsif answer == '4'
-      exit!
-    else
-      puts "lol try again!!! press 1 or 2"
-      homepage
-    end
+#     elsif answer == "2"
+#       if CLI.current_user.adoptions.count== 0
+#         puts "you don't have any pets yet!"
+#         homepage
+#       else
+#         update
+#       end 
+#     elsif answer == '3'
+#       runner
+#     elsif answer == '4'
+#       exit!
+#     else
+#       puts "lol try again!!! press 1 or 2"
+#       homepage
+#     end
 
-  end
+#   end
 
 def update
 current_pets
@@ -103,29 +103,29 @@ end
 
 
 
-def delete_pet
-  puts "Please enter the name of the pet you'd like to give up for adoption"
-  answer = get_pet_names
+# def delete_pet
+#   puts "Please enter the name of the pet you'd like to give up for adoption"
+#   answer = get_pet_names
 
-if Character.exists?(:name => answer)
-pet = Character.find_by_name(answer)
-pet_name = pet.name
+# if Character.exists?(:name => answer)
+# pet = Character.find_by_name(answer)
+# pet_name = pet.name
 
-Character.delete(pet.id)
-puts <<-EOF
+# Character.delete(pet.id)
+# puts <<-EOF
 
-        #{pet_name} has been ABANDONED.
+#         #{pet_name} has been ABANDONED.
 
 
-You have the cold cold heart of a Night King."
+# You have the cold cold heart of a Night King."
 
-EOF
-homepage
-else
-  puts "You don't have that pet."
-  reroute_delete
-end
-end
+# EOF
+# homepage
+# else
+#   puts "You don't have that pet."
+#   reroute_delete
+# end
+# end
 
 #reformat
   # def search_results(results)

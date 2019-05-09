@@ -40,7 +40,7 @@ def search_results(results)
   puts "Come pick me up from #{results.house}"
 end
 
-# 'find_character_by_name' takes in a user input and queries the database to see if it exists and shovels 
+# 'find_character_by_name' takes in a user input and queries the database to see if it exists and shovels
 # it into the 'search_results' method if the value is not 'nil'
 
 def find_characters_by_name
@@ -59,7 +59,9 @@ def find_characters_by_name
 
 end
 
+
 #'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
+
 #   and queries the database based on the search criteria
 
 

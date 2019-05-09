@@ -13,7 +13,12 @@ def homepage
       question
 
     elsif answer == "2"
+      if user.adoptions.count== 0
+        puts "you don't have any pets yet!"
+        homepage
+      else
     update
+  end 
 
     else
       puts "lol try again!!! press 1 or 2"
@@ -53,10 +58,11 @@ end
 end
 
 
+
+# prompt.select("Select your pet", %w(Scorpion Kano Jax))
 def update_name
   puts "Please enter the name of the pet you'd like to rename"
-  answer = gets.chomp
-
+  user_input = gets.chomp
 if Character.exists?(:name => answer)
 
 pet = Character.find_by_name(answer)
@@ -77,11 +83,20 @@ puts <<-EOF
       __|_______|__
 -----------------------------------------------------
 EOF
+homepage
+
 else
-  puts "You don't have that pet."
-  update_name
+  puts <<-EOF
+  You dont have that pet.
+
+  Press 1. to re-enter your pets name
+  Press 2. to return to the homepage
+EOF
+reroute_update
 end
 end
+
+
 
 def delete_pet
   puts "Please enter the name of the pet you'd like to give up for adoption"
@@ -89,13 +104,21 @@ def delete_pet
 
 if Character.exists?(:name => answer)
 pet = Character.find_by_name(answer)
+pet_name = pet.name
 
 Character.delete(pet.id)
-puts "You have the cold cold heart of a Night King."
+puts <<-EOF
 
+        #{pet_name} has been ABANDONED.
+
+
+You have the cold cold heart of a Night King."
+
+EOF
+homepage
 else
   puts "You don't have that pet."
-  delete_pet
+  reroute_delete
 end
 end
 

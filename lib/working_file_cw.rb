@@ -4,13 +4,35 @@
 #   Would you like to adopt this pet? Enter 'yes' or 'no'
 #   -----------------------------------------------------
 #   EOF
-#   answer = gets.chomp.downcase
-#   if answer == 'yes'
-#     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-#   elsif answer == 'no'
-#     not_adopt
-#   end
-# end
+#   def update
+
+def get_user_input_update
+    prompt = TTY::Prompt.new 
+    options_array = ["Change the name of one of your pets", "Put your pet back up for adoption", "Return to the homepage"]
+    options_list = options_array.each{|options| options.to_s}
+    user_input = prompt.select("Above is a list of your current pets. Choose an option below.", options_list )
+
+end
+
+def update
+    current_pets
+
+
+    answer = get_user_input_update
+    if answer == "Change the name of one of your pets"
+        update_name
+
+    elsif answer == "Put your pet back up for adoption"
+        delete_pet
+
+    elsif
+        answer =='Return to the homepage'
+        homepage
+    else
+        puts "Oops! Your input was invalid. Please try again."
+        update
+    end
+end
 
 
 # def not_adopt
@@ -35,13 +57,13 @@
 #     end
 # end
 
-def runner
-got_logo
-welcome
-get_user
-who_is_logged_in
-homepage
-end
+# def runner
+# got_logo
+# welcome
+# get_user
+# who_is_logged_in
+# homepage
+# end
 
 
 
@@ -275,3 +297,4 @@ end
 #     end
 
 #   end
+

@@ -32,35 +32,35 @@
 
 #   end
 
-def update
-current_pets
-puts <<-EOF
+# def update
+# current_pets
+# puts <<-EOF
 
-Above is a list of your current pets. Choose an ation below.
+# Above is a list of your current pets. Choose an ation below.
 
-Press 1. to change the name of one of your pets
+# Press 1. to change the name of one of your pets
 
-Press 2. to put your pet back up for adoption
+# Press 2. to put your pet back up for adoption
 
-Press 3. to return to the homepage
+# Press 3. to return to the homepage
 
-EOF
+# EOF
 
-answer = gets.chomp
-if answer == "1"
-  update_name
+# answer = gets.chomp
+# if answer == "1"
+#   update_name
 
-elsif answer == "2"
-delete_pet
+# elsif answer == "2"
+# delete_pet
 
-elsif
-  answer =='3'
-  homepage
-else
-  puts "Oops! Your input was invalid. Please try again."
-  update
-end
-end
+# elsif
+#   answer =='3'
+#   homepage
+# else
+#   puts "Oops! Your input was invalid. Please try again."
+#   update
+# end
+# end
 
 
 

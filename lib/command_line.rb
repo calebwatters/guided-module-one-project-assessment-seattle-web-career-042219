@@ -47,7 +47,7 @@ def find_characters_by_name
   search_results(CLI.current_result)
 end
 
-#This method takes the user input gathered through 'get_breed_from_user' method 
+#This method takes the user input gathered through 'get_breed_from_user' method
 #   and queries the database based on the search criteria
 
 def search_by_breed(num)
@@ -221,7 +221,7 @@ def question
     find_characters_by_name
 
   elsif answer == "2"
-    get_breed_from_user 
+    get_breed_from_user
   elsif answer == "3"
     search_by_breed("11")
   else
@@ -256,7 +256,7 @@ def adopt?
   if answer == 'yes'
     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
   else
-    "You're a JERK"
+    puts "You're a JERK"
 end
 end
 
@@ -265,7 +265,7 @@ def current_pets
   -----------------------------------------------------
           Here are your current pets
           |\_/|        D\___/\
-          
+
           (0_0)         (0_o)
          ==(Y)==         (V)
         ----------(u)---(u)----oOo--U--oOo---

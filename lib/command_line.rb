@@ -246,7 +246,7 @@ def question
     find_characters_by_name
 
   elsif answer == "2"
-    get_breed_from_user 
+    get_breed_from_user
   elsif answer == "3"
     search_by_breed("11")
   else
@@ -307,7 +307,7 @@ def not_adopt
         homepage
     else
         puts 'That is not a valid input'
-        not_adopt   
+        not_adopt
     end
 end
 

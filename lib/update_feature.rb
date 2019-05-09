@@ -66,40 +66,39 @@ end
 
 # prompt.select("Select your pet", %w(Scorpion Kano Jax))
 def update_name
-  get_pet_names
-#   puts "Please enter the name of the pet you'd like to rename"
-#   user_input = gets.chomp
-# if Character.exists?(:name => answer)
+  pet_name = get_pet_names
 
-# pet = Character.find_by_name(answer)
+if Character.exists?(:name => pet_name)
 
-# puts "Great! Now, enter a new name for #{pet.name}"
-# new_name = gets.chomp
-# pet.update(name: new_name)
-# puts "You've got GREAT taste in names!! Check out your renamed pet below."
+pet = Character.find_by_name(pet_name)
 
-# puts <<-EOF
-# -----------------------------------------------------
-#     #{pet.name}
-#         |\_/|
+puts "Great! Now, enter a new name for #{pet.name}"
+new_name = gets.chomp
+pet.update(name: new_name)
+puts "You've got GREAT taste in names!! Check out your renamed pet below."
 
-#         (0_0)    ---- I go by #{pet.name.upcase} now :D!
-#        ==(Y)==
-#       ----------(u)-
-#       __|_______|__
-# -----------------------------------------------------
-# EOF
-# homepage
+puts <<-EOF
+-----------------------------------------------------
+    #{pet.name}
+        |\_/|
 
-# else
-#   puts <<-EOF
-#   You dont have that pet.
+        (0_0)    ---- I go by #{pet.name.upcase} now :D!
+       ==(Y)==
+      ----------(u)-
+      __|_______|__
+-----------------------------------------------------
+EOF
+homepage
 
-#   Press 1. to re-enter your pets name
-#   Press 2. to return to the homepage
-# EOF
-# reroute_update
-# end
+else
+  puts <<-EOF
+  You dont have that pet.
+
+  Press 1. to re-enter your pets name
+  Press 2. to return to the homepage
+EOF
+reroute_update
+end
 end
 
 

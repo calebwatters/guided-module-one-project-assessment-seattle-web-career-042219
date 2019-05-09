@@ -232,5 +232,7 @@ end
 def get_pet_names
 
 prompt = TTY::Prompt.new
- pet_choice = prompt.select("Select a breed", current_pet_name_array)
+ pet_choice = prompt.select("Select a pet", current_pet_name_array)
+ pet_choice
 end
+

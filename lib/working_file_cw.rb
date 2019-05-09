@@ -226,4 +226,15 @@ end
 #   adopt?
 #   end
 
-# end
+# end]
+
+
+def get_pet_names
+
+prompt = TTY::Prompt.new
+search_query = prompt.select("Select a breed", %w(Braavosi
+Dornish Dothraki Free_Folk Ironborn
+Northmen Rivermen Valemen
+Valyrian Westeros SURPRISE_ME!!!") )
+
+end

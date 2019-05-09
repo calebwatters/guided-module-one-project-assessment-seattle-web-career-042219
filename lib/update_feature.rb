@@ -5,6 +5,8 @@ def homepage
 
       Press 1. to begin the apotion process
       Press 2. to manage your current pets
+      Press 3. to logout
+      Press 4. to quit
 
     EOF
     answer = gets.chomp
@@ -17,9 +19,12 @@ def homepage
         puts "you don't have any pets yet!"
         homepage
       else
-    update
-  end 
-
+        update
+      end 
+    elsif answer == '3'
+      runner
+    elsif answer == '4'
+      exit!
     else
       puts "lol try again!!! press 1 or 2"
       homepage

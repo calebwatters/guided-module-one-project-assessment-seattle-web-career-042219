@@ -256,7 +256,7 @@ def adopt?
   if answer == 'yes'
     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
   else
-    "You're a JERK"
+    puts "You're a JERK"
 end
 end
 

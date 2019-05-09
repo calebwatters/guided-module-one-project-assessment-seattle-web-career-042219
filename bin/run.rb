@@ -1,7 +1,6 @@
 require_relative '../config/environment'
 
-
-dragon1
+got_logo
 welcome
 get_user
 who_is_logged_in

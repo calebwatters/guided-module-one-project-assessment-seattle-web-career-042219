@@ -47,6 +47,8 @@ def find_characters_by_name
   search_results(CLI.current_result)
 end
 
+#This method takes the user input gathered through 'get_breed_from_user' method 
+#   and queries the database based on the search criteria
 
 def search_by_breed(num)
   if num == "1"
@@ -102,10 +104,12 @@ def search_by_breed(num)
           _/|  \-''- _ /
      __-' { |          \
          /             \
-         /       "o.  |o }
+
+                "o.  |o }
          |            \ ;
                        ',
             \_         __\
+
               ''-_    \.//
                 / '-____'
                /
@@ -203,7 +207,7 @@ end
 
 
 
-
+#This method prompts the user for the means by which they would like to search for a character
 
 def question
   puts <<-EOF
@@ -227,7 +231,7 @@ def question
 end
 
 
-def dragon1
+def got_logo
 puts <<-'EOF'
 
       ___               ___  ___   ___
@@ -240,6 +244,7 @@ puts <<-'EOF'
       EOF
 end
 
+#creates a new instance of adoption if the user has not already adopted the pet
 def adopt?
   puts <<-EOF
   -----------------------------------------------------
@@ -249,7 +254,7 @@ def adopt?
 
   answer = gets.chomp.downcase
   if answer == 'yes'
-    Adoption.create(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
+    Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
   else
     "You're a JERK"
 end
@@ -260,6 +265,7 @@ def current_pets
   -----------------------------------------------------
           Here are your current pets
           |\_/|        D\___/\
+          
           (0_0)         (0_o)
          ==(Y)==         (V)
         ----------(u)---(u)----oOo--U--oOo---

@@ -37,7 +37,7 @@ def who_is_logged_in
         |      / |     T|     |\     |l     !|   |   ||     T
            |_/\_/  l_____jl_____j \____j \___/ l___j___jl_____j
 
-                    #{username.name}!
+                            #{username.name.upcase}!
 
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -66,7 +66,7 @@ end
 
 def find_characters_by_name
   # binding.pry
-  puts "Please enter a character name"
+  puts "Please enter a character name".blue
   search = gets.chomp.downcase
   name = search.split.each { |name| name.capitalize! }.join(' ')
   CLI.current_result = Character.find_by(name: name)
@@ -293,13 +293,30 @@ end
 
 def got_logo
   puts <<-'EOF'
+                                 |ZZzzz
+                                 |
+                                 |
+                    |ZZzzz      /^\            |ZZzzz
+                    |          |~~~|           |
+                    |        |^^^^^^^|        / \
+                   /^\       |[]+    |       |~~~|
+                |^^^^^^^|    |    +[]|       |   |
+                |    +[]|/\/\/\/\^/\/\/\/\/|^^^^^^^|
+                |+[]+   |~~~~~~~~~~~~~~~~~~|    +[]|
+                |       |  []   /^\   []   |+[]+   |
+                |   +[]+|  []  || ||  []   |   +[]+|
+                |[]+    |      || ||       |[]+    |
+                |_______|------------------|_______|
+                     ___               ___  ___   ___
+                 .'|=|_.'    .'|=|`.   `._|=|   |=|_.'
+               .'  |___    .'  | |  `.      |   |
+               |   |`._|=. |   | |   |      |   |
+               `.  |  __|| `.  | |  .'      `.  |
+                 `.|=|_.''   `.|=|.'          `.|
 
-       ___               ___  ___   ___
-   .'|=|_.'    .'|=|`.   `._|=|   |=|_.'
-  .'  |___    .'  | |  `.      |   |
-  |   |`._|=. |   | |   |      |   |
-  `.  |  __|| `.  | |  .'      `.  |
-    `.|=|_.''   `.|=|.'          `.|
+                    Made by Caleb & Hanna
+
+                                              Flatiron School ♥
 
       EOF
 end
@@ -315,7 +332,7 @@ def adopt?
   answer = gets.chomp.downcase
   if answer == 'yes'
     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-    puts "Yay you adopted me!"
+    puts "Yay you adopted me!".green
     homepage
   elsif answer == 'no'
     not_adopt
@@ -340,13 +357,14 @@ def not_adopt
     elsif no_option == 'menu'
         homepage
     else
-        puts 'That is not a valid input'
+        puts 'That is not a valid input'.red
         not_adopt
     end
 end
+ 
 
 def current_pets
-    puts <<-EOF
+    pets = <<-EOF
     -----------------------------------------------------
                   __
       (\,--------'()'--o   HERE ARE YOUR PETS
@@ -354,38 +372,10 @@ def current_pets
         (_)_)  (_)_)
    -----------------------------------------------------
   EOF
+
+    puts pets.yellow
   pet_array = CLI.current_user.adoptions
   pet_array.map {|pet|search_results(pet.character)}
-end
-
-#re-routes user when input for pet update name is invalid
-def reroute_update
-    answer = gets.chomp
-  if answer == "1"
-    update_name
-
-  elsif answer == "2"
-    homepage
-
-  else
-    puts "Oops! Your input was invalid. Please try again."
-    reroute_update
-  end
-end
-
-
-def reroute_delete
-    answer = gets.chomp
-  if answer == "1"
-    delete_pet
-
-  elsif answer == "2"
-    homepage
-
-  else
-    puts "Oops! Your input was invalid. Please try again."
-    reroute_update
-  end
 end
 
 def current_pet_name_array
@@ -436,15 +426,6 @@ def update_name
    -----------------------------------------------------
   EOF
     homepage
-
-  else
-    puts <<-EOF
-    You dont have that pet.
-
-    Press 1. to re-enter your pets name
-    Press 2. to return to the homepage
-    EOF
-    reroute_update
   end
 end
 

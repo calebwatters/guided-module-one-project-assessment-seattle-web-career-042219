@@ -20,7 +20,7 @@ end
         new_user = User.find_or_create_by(name: new_name)
         CLI.current_user = new_user
   end
-  
+
 
   def who_is_logged_in
     username = CLI.current_user
@@ -60,7 +60,7 @@ def find_characters_by_name
 end
 
 
-#'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
+#'search_by_breed' takes the user input gathered through 'get_breed_from_user' method
 
 #   and queries the database based on the search criteria
 
@@ -243,7 +243,7 @@ def question
     find_characters_by_name
 
   elsif answer == "2"
-    get_breed_from_user 
+    get_breed_from_user
   elsif answer == "3"
     search_by_breed("11")
   else
@@ -304,7 +304,7 @@ def not_adopt
         homepage
     else
         puts 'That is not a valid input'
-        not_adopt   
+        not_adopt
     end
 end
 
@@ -313,7 +313,7 @@ def current_pets
   -----------------------------------------------------
           Here are your current pets
           |\_/|        D\___/\
-          
+
           (0_0)         (0_o)
          ==(Y)==         (V)
         ----------(u)---(u)----oOo--U--oOo---

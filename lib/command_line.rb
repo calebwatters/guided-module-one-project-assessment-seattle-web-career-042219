@@ -31,10 +31,10 @@ end
   end
 
 def search_results(results)
-  puts "Their name is #{results.name}"
-  puts "Their breed is #{results.breed}"
-  puts "Their gender is #{results.gender}"
-  puts "From a great shelter called #{results.house}"
+  puts "My name is #{results.name}"
+  puts "I am a #{results.breed} through and through :D!"
+  puts "I am a #{results.gender}"
+  puts "Come pick me up from #{results.house}"
 end
 
 
@@ -156,12 +156,12 @@ def search_by_breed(num)
    |   /; ./,,'`,,'' |   |
    |     /   ','    /    |
     \___/'   '     |     |
-      `,,'  |      /     `\ 
+      `,,'  |      /     `\
            /      |        ~\
           '       (
          :
         ; .         --
-      :            ;  "    
+      :            ;  "
 
     EOF
   CLI.current_result = Character.where(breed: breed).sample
@@ -227,15 +227,15 @@ def question
 end
 
 
-def dragon1 
+def dragon1
 puts <<-'EOF'
-      
-      ___               ___  ___   ___ 
-  .'|=|_.'    .'|=|`.   `._|=|   |=|_.' 
-.'  |___    .'  | |  `.      |   |      
-|   |`._|=. |   | |   |      |   |      
-`.  |  __|| `.  | |  .'      `.  |      
-  `.|=|_.''   `.|=|.'          `.|        
+
+      ___               ___  ___   ___
+  .'|=|_.'    .'|=|`.   `._|=|   |=|_.'
+.'  |___    .'  | |  `.      |   |
+|   |`._|=. |   | |   |      |   |
+`.  |  __|| `.  | |  .'      `.  |
+  `.|=|_.''   `.|=|.'          `.|
 
       EOF
 end
@@ -248,12 +248,29 @@ def adopt?
   EOF
 
   answer = gets.chomp.downcase
-  if answer == 'yes'||'yes!'
+  if answer == 'yes'
     Adoption.create(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-  elsif answer == 'no'
-    puts "you a jerk"
-  end 
-end 
+  else
+    "You're a JERK"
+end
+end
+
+def current_pets
+  puts <<-EOF
+  -----------------------------------------------------
+          Here are your current pets
+          |\_/|        D\___/\
+          (0_0)         (0_o)
+         ==(Y)==         (V)
+        ----------(u)---(u)----oOo--U--oOo---
+        __|_______|_______|_______|_______|___
+  -----------------------------------------------------
+  EOF
+pet_array = CLI.current_user.adoptions
+pet_array.map {|pet|search_results(pet.character)}
+end
+
+
 
 
 

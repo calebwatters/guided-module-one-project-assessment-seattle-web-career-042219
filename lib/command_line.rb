@@ -22,21 +22,43 @@ end
   
 
 def who_is_logged_in
-    username = CLI.current_user
-    puts <<-EOF
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            Welcome #{username.name}!
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    EOF
+  username = CLI.current_user
+  puts <<-EOF
+
+
+
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      __    __    ___  _         __   ___   ___ ___    ___
+      |  T__T  T  /  _]| T       /  ] /   \ |   T   T  /  _]
+      |  |  |  | /  [_ | |      /  / Y     Y| _   _ | /  [_
+      |  |  |  |Y    _]| l___  /  /  |  O  ||  \_/  |Y    _]
+      l  `  '  !|   [_ |     T/   \_ |     ||   |   ||   [_
+        |      / |     T|     |\     |l     !|   |   ||     T
+           |_/\_/  l_____jl_____j \____j \___/ l___j___jl_____j
+
+                    #{username.name}!
+
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  EOF
 end
 
   # 'search_results' takes in the input of a character instance and outputs the attributes associated with it
 
 def search_results(results)
+  puts
+  puts
   puts "My name is #{results.name}"
+  puts
   puts "I am a #{results.breed} through and through :D!"
+  puts
   puts "I am a #{results.gender}"
+  puts
   puts "Come pick me up from #{results.house}"
+  puts
+  puts
 end
 
 # 'find_character_by_name' takes in a user input and queries the database to see if it exists and shovels
@@ -326,13 +348,10 @@ end
 def current_pets
     puts <<-EOF
     -----------------------------------------------------
-            Here are your current pets
-            |\_/|        D\___/\
-
-            (0_0)         (0_o)
-           ==(Y)==         (V)
-           ----------(u)---(u)----oOo--U--oOo---
-           __|_______|_______|_______|_______|___
+                  __
+      (\,--------'()'--o   HERE ARE YOUR PETS
+      (_    ___    /~"
+        (_)_)  (_)_)
    -----------------------------------------------------
   EOF
   pet_array = CLI.current_user.adoptions
@@ -408,17 +427,14 @@ def update_name
     pet.update(name: new_name)
     puts "You've got GREAT taste in names!! Check out your renamed pet below."
 
-    puts <<-EOF
+     puts <<-EOF
     -----------------------------------------------------
-       #{pet.name}
-           |\_/|
-
-           (0_0)    ---- I go by #{pet.name.upcase} now :D!
-          ==(Y)==
-          ----------(u)-
-          __|_______|__
-    -----------------------------------------------------
-    EOF
+                  __
+      (\,--------'()'--o   I GO BY #{pet.name.upcase} NOW!!!!
+      (_    ___    /~"
+        (_)_)  (_)_)
+   -----------------------------------------------------
+  EOF
     homepage
 
   else

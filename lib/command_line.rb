@@ -14,22 +14,22 @@ end
 
 
 
- def get_user
+def get_user
       puts "What is your name?"
         new_name = gets.chomp
         new_user = User.find_or_create_by(name: new_name)
         CLI.current_user = new_user
-  end
+end
   
 
-  def who_is_logged_in
+def who_is_logged_in
     username = CLI.current_user
     puts <<-EOF
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Welcome #{username.name}!
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     EOF
-  end
+end
 
   # 'search_results' takes in the input of a character instance and outputs the attributes associated with it
 
@@ -50,15 +50,18 @@ def find_characters_by_name
   name = search.split.each { |name| name.capitalize! }.join(' ')
   CLI.current_result = Character.find_by(name: name)
     if CLI.current_result == nil
-      puts "that is not a character's name, please try again"
-      find_characters_by_name
+      puts <<-EOF
+      That is not a characters name.
+
+      EOF
+
+  reroute_name_search(reroute_name_search_prompt)
     else
   search_results(CLI.current_result)
   adopt?
     end
 
 end
-
 
 #'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
 
@@ -150,10 +153,10 @@ def search_by_breed(selection)
       puts <<-EOF
                          _.'.__
                       _.'      .
-':'.               .''   __ __  .
+  ':'.               .''   __ __  .
   '.:._          ./  _ ''     "-'.__
-.'''-: """-._    | .                "-"._
- '.     .    "._.'                       "
+  .'''-: """-._    | .                "-"._
+   '.     .    "._.'                       "
     '.   "-.___ .        .'          .  :o'.
       |   .----  .      .           .'     (
        '|  ----. '   ,.._                _-'
@@ -218,11 +221,11 @@ end
 # takes the user input string and passes it as an argumnet for 'search_by_breed'
 
 def get_breed_from_user
-prompt = TTY::Prompt.new
-search_query = prompt.select("Select a breed", %w(Braavosi
-Dornish Dothraki Free_Folk Ironborn
-Northmen Rivermen Valemen
-Valyrian Westeros SURPRISE_ME!!!") )
+  prompt = TTY::Prompt.new
+  search_query = prompt.select("Select a breed", %w(Braavosi
+  Dornish Dothraki Free_Folk Ironborn
+  Northmen Rivermen Valemen
+  Valyrian Westeros SURPRISE_ME!!!") )
 
   search_by_breed(search_query.to_s)
 end
@@ -255,14 +258,14 @@ end
 #'GoT_logo' is pretty self explanitory
 
 def got_logo
-puts <<-'EOF'
+  puts <<-'EOF'
 
-      ___               ___  ___   ___
-  .'|=|_.'    .'|=|`.   `._|=|   |=|_.'
-.'  |___    .'  | |  `.      |   |
-|   |`._|=. |   | |   |      |   |
-`.  |  __|| `.  | |  .'      `.  |
-  `.|=|_.''   `.|=|.'          `.|
+       ___               ___  ___   ___
+   .'|=|_.'    .'|=|`.   `._|=|   |=|_.'
+  .'  |___    .'  | |  `.      |   |
+  |   |`._|=. |   | |   |      |   |
+  `.  |  __|| `.  | |  .'      `.  |
+    `.|=|_.''   `.|=|.'          `.|
 
       EOF
 end
@@ -309,33 +312,182 @@ def not_adopt
 end
 
 def current_pets
-  puts <<-EOF
-  -----------------------------------------------------
-          Here are your current pets
-          |\_/|        D\___/\
-          
-          (0_0)         (0_o)
-         ==(Y)==         (V)
-        ----------(u)---(u)----oOo--U--oOo---
-        __|_______|_______|_______|_______|___
-  -----------------------------------------------------
+    puts <<-EOF
+    -----------------------------------------------------
+            Here are your current pets
+            |\_/|        D\___/\
+
+            (0_0)         (0_o)
+           ==(Y)==         (V)
+           ----------(u)---(u)----oOo--U--oOo---
+           __|_______|_______|_______|_______|___
+   -----------------------------------------------------
   EOF
-pet_array = CLI.current_user.adoptions
-pet_array.map {|pet|search_results(pet.character)}
+  pet_array = CLI.current_user.adoptions
+  pet_array.map {|pet|search_results(pet.character)}
+end
+
+#re-routes user when input for pet update name is invalid
+def reroute_update
+    answer = gets.chomp
+  if answer == "1"
+    update_name
+
+  elsif answer == "2"
+    homepage
+
+  else
+    puts "Oops! Your input was invalid. Please try again."
+    reroute_update
+  end
 end
 
 
+def reroute_delete
+    answer = gets.chomp
+  if answer == "1"
+    delete_pet
+
+  elsif answer == "2"
+    homepage
+
+  else
+    puts "Oops! Your input was invalid. Please try again."
+    reroute_update
+  end
+end
+
+def current_pet_name_array
+  char_id_array = CLI.current_user.adoptions.map{|adoption|adoption.character_id}
+  pets = char_id_array.map{|char_id| Character.find_by id: char_id}.compact
+  names = pets.map{|pet| pet.name}
+  formatted_names = names.each{|name|
+    name.to_s
+  }
+  formatted_names
+
+end
+
+def reroute_name_search_prompt
+  prompt = TTY::Prompt.new
+  array =
+  search_query = prompt.select("That is not a characters name.", %w(Re-enter_Name Return_To_Homepage) )
+  search_query
+end
+
+def reroute_name_search(search_query)
+  if search_query == "Re-enter_Name"
+    find_characters_by_name
+  elsif search_query== "Return_To_Homepage"
+    homepage
+  end
+end
+
+
+def update_name
+    pet_name = get_pet_names
+
+  if Character.exists?(:name => pet_name)
+
+    pet = Character.find_by_name(pet_name)
+
+    puts "Great! Now, enter a new name for #{pet.name}"
+    new_name = gets.chomp
+    pet.update(name: new_name)
+    puts "You've got GREAT taste in names!! Check out your renamed pet below."
+
+    puts <<-EOF
+    -----------------------------------------------------
+       #{pet.name}
+           |\_/|
+
+           (0_0)    ---- I go by #{pet.name.upcase} now :D!
+          ==(Y)==
+          ----------(u)-
+          __|_______|__
+    -----------------------------------------------------
+    EOF
+    homepage
+
+  else
+    puts <<-EOF
+    You dont have that pet.
+
+    Press 1. to re-enter your pets name
+    Press 2. to return to the homepage
+    EOF
+    reroute_update
+  end
+end
+
+
+def delete_pet
+  puts "Please enter the name of the pet you'd like to give up for adoption"
+  answer = get_pet_names
+
+  if Character.exists?(:name => answer)
+    pet = Character.find_by_name(answer)
+    pet_name = pet.name
+
+    Character.delete(pet.id)
+    puts <<-EOF
+
+           #{pet_name} has been ABANDONED.
+
+
+    You have the cold cold heart of a Night King."
+
+    EOF
+    homepage
+  else
+    puts "You don't have that pet."
+    reroute_delete
+  end
+end
+
+def get_pet_names
+
+  prompt = TTY::Prompt.new
+  pet_choice = prompt.select("Select a pet", current_pet_name_array)
+  pet_choice
+end
+
+def get_menu_prompt
+    prompt = TTY::Prompt.new
+    options_array = ['Begin Adoption Process', 'Manage your current pets', 'Logout', 'Quit to desktop']
+    options_list = options_array.each {|name| name.to_s}
+        selection = prompt.select("What would you like to do?", options_list)
+
+end
+
+
+def homepage
+    puts <<-EOF
+                                    Current User: #{CLI.current_user.name}
 
 
 
-# def confirm_user_choice(attribute_pref)
-#   response = ['You risky biscuit!!', 'Good choice!!', 'Uh oh.......',
-#               "Okay, we've taken your preference into account."]
-#   surprise = "You wildling, you!! Livin on the edge huh??
-#   What if you get Geoffry?!"
-#   if attribute_pref == 11
-#     puts surprise
-#   else puts response.sample
-#        puts 'Press enter for the big reveal.....'
-#   end
-# end
+
+    EOF
+    answer = get_menu_prompt
+
+    if answer == "Begin Adoption Process"
+      question
+
+    elsif answer == "Manage your current pets"
+      if CLI.current_user.adoptions.count== 0
+        puts "you don't have any pets yet!"
+        homepage
+      else
+        update
+      end 
+    elsif answer == 'Logout'
+      runner
+    elsif answer == 'Quit to desktop'
+      exit!
+    else
+      puts "lol try again!!! press 1 or 2"
+      homepage
+    end
+
+end

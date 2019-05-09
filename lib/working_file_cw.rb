@@ -229,10 +229,49 @@ end
 # end]
 
 
-def get_pet_names
+# def get_pet_names
 
-prompt = TTY::Prompt.new
- pet_choice = prompt.select("Select a pet", current_pet_name_array)
- pet_choice
+# prompt = TTY::Prompt.new
+#  pet_choice = prompt.select("Select a pet", current_pet_name_array)
+#  pet_choice
+# end
+
+def get_menu_prompt
+    prompt = TTY::Prompt.new
+    options_array = ['Begin Adoption Process', 'Manage your current pets', 'Logout', 'Quit to desktop']
+    options_list = options_array.each {|name| name.to_s}
+        selection = prompt.select("What would you like to do?", options_list)
+
 end
 
+
+def homepage
+    puts <<-EOF
+                                    Current User: #{CLI.current_user.name}
+
+
+
+
+    EOF
+    answer = get_menu_prompt
+
+    if answer == "Begin Adoption Process"
+      question
+
+    elsif answer == "Manage your current pets"
+      if CLI.current_user.adoptions.count== 0
+        puts "you don't have any pets yet!"
+        homepage
+      else
+        update
+      end 
+    elsif answer == 'Logout'
+      runner
+    elsif answer == 'Quit to desktop'
+      exit!
+    else
+      puts "lol try again!!! press 1 or 2"
+      homepage
+    end
+
+  end

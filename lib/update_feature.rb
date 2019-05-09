@@ -65,47 +65,47 @@ end
 
 
 # prompt.select("Select your pet", %w(Scorpion Kano Jax))
-def update_name
-  pet_name = get_pet_names
+# def update_name
+#   pet_name = get_pet_names
 
-if Character.exists?(:name => pet_name)
+# if Character.exists?(:name => pet_name)
 
-pet = Character.find_by_name(pet_name)
+# pet = Character.find_by_name(pet_name)
 
-puts "Great! Now, enter a new name for #{pet.name}"
-new_name = gets.chomp
-pet.update(name: new_name)
-puts "You've got GREAT taste in names!! Check out your renamed pet below."
+# puts "Great! Now, enter a new name for #{pet.name}"
+# new_name = gets.chomp
+# pet.update(name: new_name)
+# puts "You've got GREAT taste in names!! Check out your renamed pet below."
 
-puts <<-EOF
------------------------------------------------------
-    #{pet.name}
-        |\_/|
+# puts <<-EOF
+# -----------------------------------------------------
+#     #{pet.name}
+#         |\_/|
 
-        (0_0)    ---- I go by #{pet.name.upcase} now :D!
-       ==(Y)==
-      ----------(u)-
-      __|_______|__
------------------------------------------------------
-EOF
-homepage
+#         (0_0)    ---- I go by #{pet.name.upcase} now :D!
+#        ==(Y)==
+#       ----------(u)-
+#       __|_______|__
+# -----------------------------------------------------
+# EOF
+# homepage
 
-else
-  puts <<-EOF
-  You dont have that pet.
+# else
+#   puts <<-EOF
+#   You dont have that pet.
 
-  Press 1. to re-enter your pets name
-  Press 2. to return to the homepage
-EOF
-reroute_update
-end
-end
+#   Press 1. to re-enter your pets name
+#   Press 2. to return to the homepage
+# EOF
+# reroute_update
+# end
+# end
 
 
 
 def delete_pet
   puts "Please enter the name of the pet you'd like to give up for adoption"
-  answer = gets.chomp
+  answer = get_pet_names
 
 if Character.exists?(:name => answer)
 pet = Character.find_by_name(answer)

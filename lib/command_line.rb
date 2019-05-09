@@ -1,4 +1,5 @@
 
+require 'pry'
 def welcome
   puts <<-'EOF'
   --------------------------------------------------------------
@@ -35,13 +36,15 @@ def search_results(results)
   puts "Their gender is #{results.gender}"
   puts "From a great shelter called #{results.house}"
 end
+
+
 def find_characters_by_name
   # binding.pry
   puts "Please enter a character name"
   search = gets.chomp.downcase
   name = search.split.each { |name| name.capitalize! }.join(' ')
-  results = Character.find_by(name: name)
-  search_results(results)
+  CLI.current_result = Character.find_by(name: name)
+  search_results(CLI.current_result)
 end
 
 
@@ -53,8 +56,8 @@ def search_by_breed(num)
       --------------------------
       EOF
     breed = 'Braavosi'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
   elsif num == "2"
     puts <<-EOF
       --------------------
@@ -62,8 +65,8 @@ def search_by_breed(num)
       --------------------
       EOF
     breed = 'Dornish'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "3"
        puts <<-EOF
       ------------------------
@@ -71,8 +74,8 @@ def search_by_breed(num)
       ------------------------
       EOF
     breed = 'Dothraki'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "4"
        puts <<-EOF
       ------------------------------
@@ -80,8 +83,8 @@ def search_by_breed(num)
       ------------------------------
       EOF
     breed = 'Free Folk'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "5"
       puts <<-EOF
             くコ:彡
@@ -90,8 +93,8 @@ def search_by_breed(num)
       --------------------------
       EOF
     breed = 'Ironborn'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "6"
       puts <<-EOF
              _
@@ -113,8 +116,8 @@ def search_by_breed(num)
       --------------------------
       EOF
     breed = 'Northmen'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "7"
       puts <<-EOF
                          _.'.__
@@ -132,12 +135,12 @@ def search_by_breed(num)
      |_.-'            '-.'
       EOF
     breed = 'Rivermen'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "8"
     breed = 'Valemen'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "9"
     breed = 'Valyrian'
     puts <<-EOF
@@ -161,20 +164,20 @@ def search_by_breed(num)
       :            ;  "    
 
     EOF
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     elsif num == "10"
     breed = 'Westeros'
-  results = Character.where(breed: breed).sample
-  search_results(results)
+  CLI.current_result = Character.where(breed: breed).sample
+  search_results(CLI.current_result)
     else num == "11"
        puts <<-EOF
       ---------------------------------------------------------------------
       You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
       ---------------------------------------------------------------------
       EOF
-  results = Character.all.sample
-  search_results(results)
+  CLI.current_result = Character.all.sample
+  search_results(CLI.current_result)
   end
 
 end
@@ -235,6 +238,24 @@ puts <<-'EOF'
       EOF
 end
 
+def adopt?
+  puts <<-EOF
+  -----------------------------------------------------
+  Would you like to adopt this pet? Enter 'yes' or 'no'
+  -----------------------------------------------------
+  EOF
+
+  answer = gets.chomp.downcase
+  if answer == 'yes'||'yes!'
+    Adoption.create(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
+  else 
+    puts <<-EOF
+    -----------------------------------------------------
+    Would you like to adopt this pet? Enter 'yes' or 'no'
+    -----------------------------------------------------
+    EOF
+  end 
+end 
 
 
 # def get_name

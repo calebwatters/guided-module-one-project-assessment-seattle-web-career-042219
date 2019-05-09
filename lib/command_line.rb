@@ -2,11 +2,11 @@
 require 'pry'
 def welcome
   puts <<-'EOF'
-  ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Welcome to the adoption agency for Game of Thrones Characters!
 
-  ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                       Please Enter Your Name
   ______________________________________________________________
   EOF
@@ -20,13 +20,14 @@ end
         new_user = User.find_or_create_by(name: new_name)
         CLI.current_user = new_user
   end
+  
 
   def who_is_logged_in
     username = CLI.current_user
     puts <<-EOF
-    ---------------------------------------------
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Welcome #{username.name}!
-    ---------------------------------------------
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     EOF
   end
 
@@ -53,65 +54,71 @@ def find_characters_by_name
       find_characters_by_name
     else
   search_results(CLI.current_result)
+  adopt?
     end
 
 end
 
-<<<<<<< HEAD
-#This method takes the user input gathered through 'get_breed_from_user' method
-=======
 #'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
->>>>>>> f697403c6db09218bace56ee8360b9f97ae49a26
 #   and queries the database based on the search criteria
 
-def search_by_breed(num)
-  if num == "1"
+
+
+
+
+def search_by_breed(selection)
+  if selection == "Braavosi"
     puts <<-EOF
-      --------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~
            Valar Morgolis!
-      --------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~
       EOF
-    breed = 'Braavosi'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-  elsif num == "2"
+  adopt?
+  elsif selection == "Dornish"
     puts <<-EOF
-      --------------------
+      ~~~~~~~~~~~~~~~~~~~~
         Dorn has no king
-      --------------------
+      ~~~~~~~~~~~~~~~~~~~~
       EOF
-    breed = 'Dornish'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "3"
+  adopt?
+    elsif selection == "Dothraki"
        puts <<-EOF
-      ------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~
       Yer jalan atthirari anni
-      ------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~
       EOF
-    breed = 'Dothraki'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "4"
+  adopt?
+    elsif selection == "Free_Folk"
        puts <<-EOF
-      ------------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       These are the free folk indeed
-      ------------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       EOF
     breed = 'Free Folk'
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "5"
+  adopt?
+    elsif selection == "Ironborn"
       puts <<-EOF
             くコ:彡
-      --------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~
       What is dead my never die!
-      --------------------------
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~
       EOF
-    breed = 'Ironborn'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "6"
+  adopt?
+    elsif selection == "Northmen"
       puts <<-EOF
              _
             / \      _-'
@@ -129,14 +136,15 @@ def search_by_breed(num)
                /
              _'
            _-'
-      --------------------------
+      >>>>>>>>>>>>>>>>>>>>>>>>>>
           WINTER IS COMING!
-      --------------------------
+      >>>>>>>>>>>>>>>>>>>>>>>>>>
       EOF
-    breed = 'Northmen'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "7"
+  adopt?
+    elsif selection == "Rivermen"
       puts <<-EOF
                          _.'.__
                       _.'      .
@@ -152,15 +160,17 @@ def search_by_breed(num)
       .'  _'         .'    _'
      |_.-'            '-.'
       EOF
-    breed = 'Rivermen'
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "8"
-    breed = 'Valemen'
+  adopt?
+    elsif selection == "Valemen"
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "9"
-    breed = 'Valyrian'
+  adopt?
+    elsif selection == "Valyrian"
+    breed = selection
     puts <<-EOF
             /           /
             /' .,,,,  ./
@@ -184,18 +194,21 @@ def search_by_breed(num)
     EOF
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    elsif num == "10"
-    breed = 'Westeros'
+  adopt?
+    elsif selection == "Westeros"
+    breed = selection
   CLI.current_result = Character.where(breed: breed).sample
   search_results(CLI.current_result)
-    else num == "11"
+  adopt?
+    else selection == "SUPRISE_ME!!!"
        puts <<-EOF
-      ~-------
+      ---------------------------------------------------------------------
       You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
-      ~-------
+      ---------------------------------------------------------------------
       EOF
   CLI.current_result = Character.all.sample
   search_results(CLI.current_result)
+  adopt?
   end
 
 end
@@ -203,22 +216,13 @@ end
 # takes the user input string and passes it as an argumnet for 'search_by_breed'
 
 def get_breed_from_user
-  puts "Below you'll find a list of breeds-- please enter the number
-  that corresponds to the breed you want your new GoT pet to have:
+prompt = TTY::Prompt.new
+search_query = prompt.select("Select a breed", %w(Braavosi
+Dornish Dothraki Free_Folk Ironborn
+Northmen Rivermen Valemen
+Valyrian Westeros SURPRISE_ME!!!") )
 
-1 - Braavosi
-2 - Dornish
-3 - Dothraki
-4 - Free Folk
-5 - Ironborn
-6 - Northmen
-7 - Rivermen
-8 - Valemen
-9 - Valyrian
-10 - Westeros
-11 - SURPRISE ME!!!"
-search_query = gets.chomp
-  search_by_breed(search_query)
+  search_by_breed(search_query.to_s)
 end
 
 
@@ -237,7 +241,7 @@ def question
     find_characters_by_name
 
   elsif answer == "2"
-    get_breed_from_user
+    get_breed_from_user 
   elsif answer == "3"
     search_by_breed("11")
   else
@@ -262,45 +266,52 @@ puts <<-'EOF'
 end
 
 #creates a new instance of adoption if the user has not already adopted the pet
-<<<<<<< HEAD
+
 def adopt?
   puts <<-EOF
   -----------------------------------------------------
   Would you like to adopt this pet? Enter 'yes' or 'no'
   -----------------------------------------------------
   EOF
-
   answer = gets.chomp.downcase
   if answer == 'yes'
     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-  else
-    puts "You're a JERK"
+    puts "Yay you adopted me!"
+    homepage
+  elsif answer == 'no'
+    not_adopt
+  end
 end
-end
-=======
-# def adopt?
-#   puts <<-EOF
-#   -----------------------------------------------------
-#   Would you like to adopt this pet? Enter 'yes' or 'no'
-#   -----------------------------------------------------
-#   EOF
 
-#   answer = gets.chomp.downcase
-#   if answer == 'yes'
-#     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-#   else
-#     puts "You're a JERK"
-    
-#   end
-# end
->>>>>>> f697403c6db09218bace56ee8360b9f97ae49a26
+
+def not_adopt
+   puts <<-EOF
+  ----------------------------------------------------------
+            Would you like to search for a new pet?
+
+                    If so please type 'yes'
+
+        If not please type 'menu' to go to the homepage
+  ----------------------------------------------------------
+    EOF
+    no_option = gets.chomp.downcase
+    if no_option == 'yes'
+        question
+        adopt?
+    elsif no_option == 'menu'
+        homepage
+    else
+        puts 'That is not a valid input'
+        not_adopt   
+    end
+end
 
 def current_pets
   puts <<-EOF
   -----------------------------------------------------
           Here are your current pets
           |\_/|        D\___/\
-
+          
           (0_0)         (0_o)
          ==(Y)==         (V)
         ----------(u)---(u)----oOo--U--oOo---

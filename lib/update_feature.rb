@@ -13,7 +13,7 @@ def homepage
       question
 
     elsif answer == "2"
-      if user.adoptions.count== 0
+      if CLI.current_user.adoptions.count== 0
         puts "you don't have any pets yet!"
         homepage
       else

@@ -218,6 +218,8 @@ def question
 
   elsif answer == "2"
     get_breed_from_user 
+  elsif answer == "3"
+    search_by_breed("11")
   else
     puts "that is not a valid input yet"
   end
@@ -248,29 +250,12 @@ def adopt?
   answer = gets.chomp.downcase
   if answer == 'yes'||'yes!'
     Adoption.create(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-  else 
-    puts <<-EOF
-    -----------------------------------------------------
-    Would you like to adopt this pet? Enter 'yes' or 'no'
-    -----------------------------------------------------
-    EOF
+  elsif answer == 'no'
+    puts "you a jerk"
   end 
 end 
 
 
-# def get_name
-#   name = gets.chomp
-#   if User.find_by(name: name) == name
-#     puts "Welcome back!"
-#   else
-#   User.create(name:name)
-#   puts "Thanks, #{name}! We've run your bakground check---
-#   lots of iffy stuff in there but we still think you'll make
-#   an excellent parent!
-
-#   "
-# end
-# end
 
 # def confirm_user_choice(attribute_pref)
 #   response = ['You risky biscuit!!', 'Good choice!!', 'Uh oh.......',
@@ -278,32 +263,6 @@ end
 #   surprise = "You wildling, you!! Livin on the edge huh??
 #   What if you get Geoffry?!"
 #   if attribute_pref == 11
-#     puts surprise
-#   else puts response.sample
-#        puts 'Press enter for the big reveal.....'
-#   end
-# end
-
-# def attribute_prompt
-#   puts "Below you'll find a list of breeds-- please enter the number
-#   that corresponds to the breed you want your new GoT pet to have:
-
-# 1 - Braavosi
-# 2 - Dornish
-# 3 - Dothraki
-# 4 - Free Folk
-# 5 - Ironborn
-# 6 - Northmen
-# 7 - Rivermen
-# 8 - Valemen
-# 9 - Valyrian
-# 10 - Westeros
-# 11 - SURPRISE ME!!!"
-# search_query = gets.chomp
-# response = ['You risky biscuit!!', 'Good choice!!', 'Uh oh.......',
-#               "Okay, we've taken your preference into account."]
-# surprise = "You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!"
-#   if search_query == 11
 #     puts surprise
 #   else puts response.sample
 #        puts 'Press enter for the big reveal.....'

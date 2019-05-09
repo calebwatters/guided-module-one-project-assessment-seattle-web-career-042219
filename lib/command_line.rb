@@ -2,11 +2,11 @@
 require 'pry'
 def welcome
   puts <<-'EOF'
-  --------------------------------------------------------------
+  ~
 
   Welcome to the adoption agency for Game of Thrones Characters!
 
-  --------------------------------------------------------------
+  ~
                       Please Enter Your Name
   ______________________________________________________________
   EOF
@@ -24,11 +24,13 @@ end
   def who_is_logged_in
     username = CLI.current_user
     puts <<-EOF
-    -------------------------
-      Welcome #{username.name}!
-    -------------------------
+    ---------------------------------------------
+            Welcome #{username.name}!
+    ---------------------------------------------
     EOF
   end
+
+  # 'search_results' takes in the input of a character instance and outputs the attributes associated with it
 
 def search_results(results)
   puts "My name is #{results.name}"
@@ -37,6 +39,8 @@ def search_results(results)
   puts "Come pick me up from #{results.house}"
 end
 
+# 'find_character_by_name' takes in a user input and queries the database to see if it exists and shovels 
+# it into the 'search_results' method if the value is not 'nil'
 
 def find_characters_by_name
   # binding.pry
@@ -44,10 +48,20 @@ def find_characters_by_name
   search = gets.chomp.downcase
   name = search.split.each { |name| name.capitalize! }.join(' ')
   CLI.current_result = Character.find_by(name: name)
+    if CLI.current_result == nil
+      puts "that is not a character's name, please try again"
+      find_characters_by_name
+    else
   search_results(CLI.current_result)
+    end
+
 end
 
+<<<<<<< HEAD
 #This method takes the user input gathered through 'get_breed_from_user' method
+=======
+#'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
+>>>>>>> f697403c6db09218bace56ee8360b9f97ae49a26
 #   and queries the database based on the search criteria
 
 def search_by_breed(num)
@@ -176,15 +190,17 @@ def search_by_breed(num)
   search_results(CLI.current_result)
     else num == "11"
        puts <<-EOF
-      ---------------------------------------------------------------------
+      ~-------
       You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
-      ---------------------------------------------------------------------
+      ~-------
       EOF
   CLI.current_result = Character.all.sample
   search_results(CLI.current_result)
   end
 
 end
+
+# takes the user input string and passes it as an argumnet for 'search_by_breed'
 
 def get_breed_from_user
   puts "Below you'll find a list of breeds-- please enter the number
@@ -207,7 +223,7 @@ end
 
 
 
-#This method prompts the user for the means by which they would like to search for a character
+#'question' prompts the user for the means by which they would like to search for a character
 
 def question
   puts <<-EOF
@@ -230,6 +246,7 @@ def question
 
 end
 
+#'GoT_logo' is pretty self explanitory
 
 def got_logo
 puts <<-'EOF'
@@ -245,6 +262,7 @@ puts <<-'EOF'
 end
 
 #creates a new instance of adoption if the user has not already adopted the pet
+<<<<<<< HEAD
 def adopt?
   puts <<-EOF
   -----------------------------------------------------
@@ -259,6 +277,23 @@ def adopt?
     puts "You're a JERK"
 end
 end
+=======
+# def adopt?
+#   puts <<-EOF
+#   -----------------------------------------------------
+#   Would you like to adopt this pet? Enter 'yes' or 'no'
+#   -----------------------------------------------------
+#   EOF
+
+#   answer = gets.chomp.downcase
+#   if answer == 'yes'
+#     Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
+#   else
+#     puts "You're a JERK"
+    
+#   end
+# end
+>>>>>>> f697403c6db09218bace56ee8360b9f97ae49a26
 
 def current_pets
   puts <<-EOF

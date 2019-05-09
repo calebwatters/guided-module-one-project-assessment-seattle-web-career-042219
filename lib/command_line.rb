@@ -1,7 +1,7 @@
 
 require 'pry'
 def welcome
-  puts <<-'EOF'
+  welcome =  <<-'EOF'
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Welcome to the adoption agency for Game of Thrones Characters!
@@ -10,6 +10,8 @@ def welcome
                       Please Enter Your Name
   ______________________________________________________________
   EOF
+
+  puts welcome.colorize(:light_yellow)
 end
 
 
@@ -23,7 +25,7 @@ end
 
 def who_is_logged_in
   username = CLI.current_user
-  puts <<-EOF
+  welcome = <<-EOF
 
 
 
@@ -43,6 +45,7 @@ def who_is_logged_in
 
 
   EOF
+  puts welcome.colorize(:light_cyan)
 end
 
   # 'search_results' takes in the input of a character instance and outputs the attributes associated with it
@@ -292,7 +295,7 @@ end
 #'GoT_logo' is pretty self explanitory
 
 def got_logo
-  puts <<-'EOF'
+  logo = <<-'EOF'
                                  |ZZzzz
                                  |
                                  |
@@ -319,6 +322,7 @@ def got_logo
                                               Flatiron School ♥
 
       EOF
+      puts logo.colorize(:light_cyan)
 end
 
 #creates a new instance of adoption if the user has not already adopted the pet
@@ -439,7 +443,7 @@ def delete_pet
     pet_name = pet.name
 
     Adoption.where(character_id: pet.id, user_id: CLI.current_user.id).destroy_all
-    puts <<-EOF
+    delete = <<-EOF
 
            #{pet_name} has been ABANDONED.
 
@@ -447,6 +451,7 @@ def delete_pet
     You have the cold cold heart of a Night King."
 
     EOF
+    puts delete.colorize(:red)
     homepage
   else
     puts "You don't have that pet."
@@ -471,13 +476,26 @@ end
 
 
 def homepage
-    puts <<-EOF
-                                    Current User: #{CLI.current_user.name}
+  t = Time.now
+    page = <<-EOF
+
+      _    _                                             
+     | |  | |                                            
+     | |__| | ___  _ __ ___   ___ _ __   __ _  __ _  ___ 
+     |  __  |/ _  | '_ ` _ | / _   '_ | / _` |/ _` |/ _ \
+
+     | |  | | (_) | | | | | |  __/ |_) | (_| | (_| |  __/
+     |_|  |_| ___/|_| |_| |_| ___| .__/ |__,_| __, ||___|
+                                 | |           __/ |     
+                                 |_|          |___/     
+
+     #{t.strftime("%I:%M%p") }                            Current User: #{CLI.current_user.name}
 
 
 
 
     EOF
+    puts page.colorize(:light_cyan)
     answer = get_menu_prompt
 
     if answer == "Begin Adoption Process"

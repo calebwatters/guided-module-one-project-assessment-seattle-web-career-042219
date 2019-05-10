@@ -93,16 +93,18 @@ end
 
 
 def search_by_breed(selection)
-  if selection != "SUPRISE_ME!!!"
+  if selection != "SUPRISE ME!!!"
     random_art
     CLI.current_result = Character.where(breed: selection).sample
     search_results(CLI.current_result)
     adopt?
-  else
+  elsif selection == "SUPRISE ME!!!"
     random_art
     CLI.current_result = Character.all.sample
     search_results(CLI.current_result)
     adopt?
+  else
+    puts "ERROR".colorize(:red)
   end
 
 end
@@ -113,7 +115,7 @@ def get_breed_from_user
   options_array = ['Braavosi',
   'Dornish', 'Dothraki', 'Free Folk', 'Ironborn',
   'Northmen', 'Rivermen', 'Valemen',
-  'Valyrian', 'Westeros', 'SURPRISE ME!!!']
+  'Valyrian', 'Westeros', 'SUPRISE ME!!!']
   options_list = options_array.each{|breed| breed.to_s}
 
   search_query = prompt.select("Select a breed", options_list)
@@ -280,8 +282,8 @@ def current_pets
   EOF
 
     puts pets.yellow
-  pet_array = CLI.current_user.adoptions
-  pet_array.map {|pet|search_results(pet.character)}
+     pet_array = CLI.current_user.characters
+     pet_array.each {|pet|search_results(pet)}
 end
 
 def current_pet_name_array
@@ -321,6 +323,7 @@ def update_name
     puts "Great! Now, enter a new name for #{pet.name}"
     new_name = gets.chomp
     pet.update(name: new_name)
+    CLI.current_user.reload
     puts "You've got GREAT taste in names!! Check out your renamed pet below."
 
      puts <<-EOF

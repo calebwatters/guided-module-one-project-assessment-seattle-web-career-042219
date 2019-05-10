@@ -3,6 +3,8 @@ require 'json'
 require 'pry'
 
 Character.destroy_all
+User.destroy_all
+Adoption.destroy_all
 #info from API parsed into JSON
 def character_info_hash
   total_results = []
@@ -23,7 +25,7 @@ end
 #ice-and-fire api
 
 def character_attributes
-character_names_array = []
+ character_names_array = []
 
   character_info_hash.each do |character|
     if character['tvSeries'].first != ""
@@ -34,7 +36,7 @@ character_names_array = []
         popularity = character['tvSeries'].length
         house = character_house_hash(character)
         if character['culture'] == ""
-          breed = "uknown"
+          breed = "mutt"
           house = character_house_hash(character)
         else
           breed = character['culture']

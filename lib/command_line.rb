@@ -340,6 +340,9 @@ def adopt?
     homepage
   elsif answer == 'no'
     not_adopt
+  else
+    puts "Sorry, that is not a valid input".colorize(:red).colorize(:italic)
+    adopt?
   end
 end
 

@@ -299,15 +299,16 @@ end
 
 def reroute_name_search_prompt
   prompt = TTY::Prompt.new
-  array =
-  search_query = prompt.select("That is not a characters name.", %w(Re-enter_Name Return_To_Homepage) )
+  options_array = ['Re-enter Name','Return To Homepage']
+  options_list = options_array.each{|select| select.to_s}
+  search_query = prompt.select("That is not a characters name.", options_list )
   search_query
 end
 
 def reroute_name_search(search_query)
-  if search_query == "Re-enter_Name"
+  if search_query == "Re-enter Name"
     find_characters_by_name
-  elsif search_query== "Return_To_Homepage"
+  elsif search_query== "Return To Homepage"
     homepage
   end
 end
@@ -357,6 +358,7 @@ def delete_pet
 
     EOF
     puts delete.colorize(:red)
+    CLI.current_user.reload
     homepage
   else
     puts "You don't have that pet."

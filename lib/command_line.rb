@@ -436,6 +436,7 @@ def get_user_input_update
 end
 
 def update
+  CLI.current_user.reload
     current_pets
 
 

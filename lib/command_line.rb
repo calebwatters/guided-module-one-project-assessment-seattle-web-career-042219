@@ -432,7 +432,7 @@ def got_logo
       puts logo.colorize(:light_cyan)
 end
 
-creates a new instance of adoption if the user has not already adopted the pet
+#creates a new instance of adoption if the user has not already adopted the pet
 
 def adopt?
   puts <<-EOF
@@ -558,7 +558,7 @@ def delete_pet
            #{pet_name} has been ABANDONED.
 
 
-    You have the cold cold heart of a Night King."
+    You have the cold cold heart of a Night King.
 
     EOF
     puts delete.colorize(:red)

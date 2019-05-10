@@ -47,7 +47,7 @@ character_names_array = []
         popularity = character['tvSeries'].length
         house = character_house_hash(character)
         if character['culture'] == ""
-          breed = "uknown"
+          breed = "mutt"
         else
           breed = character['culture']
         end
@@ -66,7 +66,7 @@ def character_house_hash(character)
       data = JSON.parse(response)
       shelter = data['name']
   else
-    shelter = 'currenty wandering the land'
+    shelter = 'wherever Ive wandered to :D'
   end
   shelter
 end

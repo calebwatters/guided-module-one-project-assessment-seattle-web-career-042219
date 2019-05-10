@@ -53,13 +53,13 @@ end
 def search_results(results)
   puts
   puts
-  puts "My name is #{results.name}"
+  puts "My name is #{results.name}".colorize(:light_cyan)
   puts
-  puts "I am a #{results.breed} through and through :D!"
+  puts "I am a #{results.breed} through and through :D!".colorize(:light_blue)
   puts
-  puts "I am a #{results.gender}"
+  puts "I am a #{results.gender}".colorize(:light_blue)
   puts
-  puts "Come pick me up from #{results.house}"
+  puts "Come pick me up from #{results.house}".colorize(:light_blue)
   puts
   puts
 end
@@ -573,7 +573,7 @@ def delete_pet
            #{pet_name} has been ABANDONED.
 
 
-    You have the cold cold heart of a Night King."
+    You have the cold cold heart of a Night King.
 
     EOF
     puts delete.colorize(:red)

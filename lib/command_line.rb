@@ -325,7 +325,7 @@ def got_logo
       puts logo.colorize(:light_cyan)
 end
 
-#creates a new instance of adoption if the user has not already adopted the pet
+creates a new instance of adoption if the user has not already adopted the pet
 
 def adopt?
   puts <<-EOF
@@ -482,15 +482,15 @@ def homepage
   t = Time.now
     page = <<-EOF
 
-      _    _                                             
-     | |  | |                                            
-     | |__| | ___  _ __ ___   ___ _ __   __ _  __ _  ___ 
+      _    _
+     | |  | |
+     | |__| | ___  _ __ ___   ___ _ __   __ _  __ _  ___
      |  __  |/ _  | '_ ` _ | / _   '_ | / _` |/ _` |/ _ \
 
      | |  | | (_) | | | | | |  __/ |_) | (_| | (_| |  __/
      |_|  |_| ___/|_| |_| |_| ___| .__/ |__,_| __, ||___|
-                                 | |           __/ |     
-                                 |_|          |___/     
+                                 | |           __/ |
+                                 |_|          |___/
 
      #{t.strftime("%I:%M%p") }                            Current User: #{CLI.current_user.name}
 

@@ -19,7 +19,7 @@ def get_user
         new_user = User.find_or_create_by(name: new_name)
         CLI.current_user = new_user
 end
-  
+
 
 def who_is_logged_in
   username = CLI.current_user
@@ -84,160 +84,160 @@ def find_characters_by_name
 
 end
 
-#'search_by_breed' takes the user input gathered through 'get_breed_from_user' method 
+#'search_by_breed' takes the user input gathered through 'get_breed_from_user' method
 
 #   and queries the database based on the search criteria
 
 
-
-
-
-def search_by_breed(selection)
-  if selection == "Braavosi"
-    puts <<-EOF
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~
-           Valar Morgolis!
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-  elsif selection == "Dornish"
-    puts <<-EOF
-      ~~~~~~~~~~~~~~~~~~~~
-        Dorn has no king
-      ~~~~~~~~~~~~~~~~~~~~
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Dothraki"
-       puts <<-EOF
-      ~~~~~~~~~~~~~~~~~~~~~~~~
-      Yer jalan atthirari anni
-      ~~~~~~~~~~~~~~~~~~~~~~~~
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Free_Folk"
-       puts <<-EOF
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      These are the free folk indeed
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      EOF
-    breed = 'Free Folk'
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Ironborn"
-      puts <<-EOF
-            くコ:彡
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~
-      What is dead my never die!
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Northmen"
-      puts <<-EOF
-             _
-            / \      _-'
-          _/|  \-''- _ /
-     __-' { |          \
-         /             \
-
-                "o.  |o }
-         |            \ ;
-                       ',
-            \_         __\
-
-              ''-_    \.//
-                / '-____'
-               /
-             _'
-           _-'
-      >>>>>>>>>>>>>>>>>>>>>>>>>>
-          WINTER IS COMING!
-      >>>>>>>>>>>>>>>>>>>>>>>>>>
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Rivermen"
-      puts <<-EOF
-                         _.'.__
-                      _.'      .
-  ':'.               .''   __ __  .
-  '.:._          ./  _ ''     "-'.__
-  .'''-: """-._    | .                "-"._
-   '.     .    "._.'                       "
-    '.   "-.___ .        .'          .  :o'.
-      |   .----  .      .           .'     (
-       '|  ----. '   ,.._                _-'
-        .' .---  |.""  .-:;.. _____.----'
-        |   .-""""    |      '
-      .'  _'         .'    _'
-     |_.-'            '-.'
-      EOF
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Valemen"
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Valyrian"
-    breed = selection
-    puts <<-EOF
-            /           /
-            /' .,,,,  ./
-           /';'     ,/
-          / /   ,,//,`'`
-         ( ,, '_,  ,,,' ``
-         |    /@  ,,, ; `
-        /    .   ,''/' `,``
-       /   .     ./, `,, ` ;
-    ,./  .   ,-,',` ,,/'','
-   |   /; ./,,'`,,'' |   |
-   |     /   ','    /    |
-    \___/'   '     |     |
-      `,,'  |      /     `\
-           /      |        ~\
-          '       (
-         :
-        ; .         --
-      :            ;  "
-
-    EOF
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    elsif selection == "Westeros"
-    breed = selection
-  CLI.current_result = Character.where(breed: breed).sample
-  search_results(CLI.current_result)
-  adopt?
-    else selection == "SUPRISE_ME!!!"
-       puts <<-EOF
-      ---------------------------------------------------------------------
-      You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
-      ---------------------------------------------------------------------
-      EOF
-  CLI.current_result = Character.all.sample
-  search_results(CLI.current_result)
-  adopt?
-  end
-
-end
+#
+#
+#
+# def search_by_breed(selection)
+#   if selection == "Braavosi"
+#     puts <<-EOF
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+#            Valar Morgolis!
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#   elsif selection == "Dornish"
+#     puts <<-EOF
+#       ~~~~~~~~~~~~~~~~~~~~
+#         Dorn has no king
+#       ~~~~~~~~~~~~~~~~~~~~
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Dothraki"
+#        puts <<-EOF
+#       ~~~~~~~~~~~~~~~~~~~~~~~~
+#       Yer jalan atthirari anni
+#       ~~~~~~~~~~~~~~~~~~~~~~~~
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Free_Folk"
+#        puts <<-EOF
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       These are the free folk indeed
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       EOF
+#     breed = 'Free Folk'
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Ironborn"
+#       puts <<-EOF
+#             くコ:彡
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       What is dead my never die!
+#       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Northmen"
+#       puts <<-EOF
+#              _
+#             / \      _-'
+#           _/|  \-''- _ /
+#      __-' { |          \
+#          /             \
+#
+#                 "o.  |o }
+#          |            \ ;
+#                        ',
+#             \_         __\
+#
+#               ''-_    \.//
+#                 / '-____'
+#                /
+#              _'
+#            _-'
+#       >>>>>>>>>>>>>>>>>>>>>>>>>>
+#           WINTER IS COMING!
+#       >>>>>>>>>>>>>>>>>>>>>>>>>>
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Rivermen"
+#       puts <<-EOF
+#                          _.'.__
+#                       _.'      .
+#   ':'.               .''   __ __  .
+#   '.:._          ./  _ ''     "-'.__
+#   .'''-: """-._    | .                "-"._
+#    '.     .    "._.'                       "
+#     '.   "-.___ .        .'          .  :o'.
+#       |   .----  .      .           .'     (
+#        '|  ----. '   ,.._                _-'
+#         .' .---  |.""  .-:;.. _____.----'
+#         |   .-""""    |      '
+#       .'  _'         .'    _'
+#      |_.-'            '-.'
+#       EOF
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Valemen"
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Valyrian"
+#     breed = selection
+#     puts <<-EOF
+#             /           /
+#             /' .,,,,  ./
+#            /';'     ,/
+#           / /   ,,//,`'`
+#          ( ,, '_,  ,,,' ``
+#          |    /@  ,,, ; `
+#         /    .   ,''/' `,``
+#        /   .     ./, `,, ` ;
+#     ,./  .   ,-,',` ,,/'','
+#    |   /; ./,,'`,,'' |   |
+#    |     /   ','    /    |
+#     \___/'   '     |     |
+#       `,,'  |      /     `\
+#            /      |        ~\
+#           '       (
+#          :
+#         ; .         --
+#       :            ;  "
+#
+#     EOF
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     elsif selection == "Westeros"
+#     breed = selection
+#   CLI.current_result = Character.where(breed: breed).sample
+#   search_results(CLI.current_result)
+#   adopt?
+#     else selection == "SUPRISE_ME!!!"
+#        puts <<-EOF
+#       ---------------------------------------------------------------------
+#       You wildling, you!! Livin on the edge huh?? What if you get Geoffry?!
+#       ---------------------------------------------------------------------
+#       EOF
+#   CLI.current_result = Character.all.sample
+#   search_results(CLI.current_result)
+#   adopt?
+#   end
+#
+# end
 
 # takes the user input string and passes it as an argumnet for 'search_by_breed'
 
@@ -361,7 +361,7 @@ def not_adopt
         not_adopt
     end
 end
- 
+
 
 def current_pets
     pets = <<-EOF
@@ -489,7 +489,7 @@ def homepage
         homepage
       else
         update
-      end 
+      end
     elsif answer == 'Logout'
       runner
     elsif answer == 'Quit to desktop'
@@ -502,7 +502,7 @@ def homepage
 end
 
 def get_user_input_update
-    prompt = TTY::Prompt.new 
+    prompt = TTY::Prompt.new
     options_array = ["Change the name of one of your pets", "Put your pet back up for adoption", "Return to the homepage"]
     options_list = options_array.each{|options| options.to_s}
     user_input = prompt.select("Above is a list of your current pets. Choose an option below.", options_list )

@@ -433,43 +433,57 @@ def got_logo
       puts logo.colorize(:light_cyan)
 end
 
-creates a new instance of adoption if the user has not already adopted the pet
+#creates a new instance of adoption if the user has not already adopted the pet
 
 def adopt?
-  puts <<-EOF
-  -----------------------------------------------------
-  Would you like to adopt this pet? Enter 'yes' or 'no'
-  -----------------------------------------------------
-  EOF
-  answer = gets.chomp.downcase
-  if answer == 'yes'
-    Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
-    puts "Yay you adopted me!".green
-    homepage
-  elsif answer == 'no'
-    not_adopt
-  else
-    puts "Sorry, that is not a valid input".colorize(:red).colorize(:italic)
-    adopt?
-  end
+  route_adoption(adopt_prompt)
 end
 
 
+def adopt_prompt
+  prompt = TTY::Prompt.new
+  search_query = prompt.select("  Would you like to adopt this pet?", %w(Yes No) )
+  search_query
+end
+
+
+def route_adoption(search_query)
+  if search_query == "Yes"
+    Adoption.find_or_create_by(character_id: CLI.current_result.id, user_id: CLI.current_user.id)
+    yay = <<-EOF
+
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      YAY!! YOU ADOPTED ME!!
+
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    EOF
+    puts yay.green
+    homepage
+  elsif search_query== "No"
+    not_adopt
+  end
+end
+
+def not_adopt_prompt
+  prompt = TTY::Prompt.new
+  search_query = prompt.select(" ", %w(Yes Menu) )
+  search_query
+end
+
 def not_adopt
    puts <<-EOF
-  ----------------------------------------------------------
-            Would you like to search for a new pet?
-
-                    If so please type 'yes'
-
-        If not please type 'menu' to go to the homepage
-  ----------------------------------------------------------
+  ------------------------------------------------------------
+    Would you like to search for a new pet or go to the menu?
+  ------------------------------------------------------------
     EOF
-    no_option = gets.chomp.downcase
-    if no_option == 'yes'
+    no_option = not_adopt_prompt
+    if no_option == 'Yes'
+      whitespace
         question
         adopt?
-    elsif no_option == 'menu'
+    elsif no_option == 'Menu'
+      whitespace
         homepage
     else
         puts 'That is not a valid input'.red
@@ -587,6 +601,7 @@ end
 
 
 def homepage
+  whitespace
   t = Time.now
     page = <<-EOF
 
@@ -664,4 +679,17 @@ def runner
   get_user
   who_is_logged_in
   homepage
+end
+
+def whitespace
+  puts <<-EOF
+
+
+
+
+
+
+
+
+  EOF
 end

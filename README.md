@@ -1,20 +1,26 @@
-Module One Final Project
+Module One Final Project- Game of Thrones Adoption Agency
 ========================
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
 
-For your final project, you'll be building a Command Line Application.
+This game allows the user to search through and collect their favorite Game of Thrones characters (represented as 'pets' in this game!). GAA allows users to log in and view their current GOT pets at any time, change their pets' names, delete and/or add a pet to their family,
 
----
 
-## Goals (Minimum Requirements)
+HOW TO RUN PROGRAM
+1. Visit this git repository via this link
+2. Clone and download the game by copying the provided link on
+   git and running 'git clone [PASTE LINK HERE]' in your terminal
+3. Run 'bundle install' to download necessary gems
+4. Run 'rake db:seed' (this seeds all the GOT data for the app!)
+5. Run 'ruby bin/run.rb' to play!
 
-You will be building a **Command Line CRUD App** that uses a database to persist information. The goal of which is to demonstrate all of the skills that you've learned in module one:
 
-- Ruby
-- Object Orientation
-- Relationships (via ActiveRecord)
-- Problem Solving (via creating a Command Line Interface (CLI))
+FEATURES
+- Stores user data! User can access their pets anytime with their login
+-User can search for pets by name and breed, and are given t 
+- User can update the names of their pets
+
+
+
 
 Your **minimum requirements** for this project are to build a Command Line App that:
 
